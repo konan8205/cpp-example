@@ -1,8 +1,8 @@
 /*
-	Shinwoo Park
-	natural7530@gmail.com
-
-	MIT License
+    Shinwoo Park
+    natural7530@gmail.com
+    
+    MIT License
 */
 
 #include <iostream>
