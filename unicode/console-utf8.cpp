@@ -26,7 +26,7 @@ int main()
 	SetConsoleCP(CP_UTF8);
 	SetConsoleOutputCP(CP_UTF8);
 #else
-	locale::global(locale("C.UTF-8"));
+	locale::global(locale("en_US.UTF-8"));
 #endif // _WIN32
 	
 	// Optimization
