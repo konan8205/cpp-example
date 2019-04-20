@@ -28,15 +28,15 @@ int main()
 #else
 	locale::global(locale("en_US.UTF-8"));
 #endif // _WIN32
-	
+
 	// Optimization
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cout<<u8"UTF-8 is beautiful :)"<<endl
-		<<u8"UTF-8は美しいです :)"<<endl
-		<<u8"UTF-8은 아름답습니다 :)"<<endl;
+	cout << u8"UTF-8 is beautiful :)" << endl
+		 << u8"UTF-8は美しいです :)" << endl
+		 << u8"UTF-8은 아름답습니다 :)" << endl;
 
 	return 0;
 }

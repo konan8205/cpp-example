@@ -17,10 +17,10 @@
 using namespace std;
 
 wchar_t str[3][64] =
-{
-	L"UTF-16 is useful :)\n",
-	L"UTF-16は有用です :)\n",
-	L"UTF-16은 유용합니다 :)\n",
+	{
+		L"UTF-16 is useful :)\n",
+		L"UTF-16は有用です :)\n",
+		L"UTF-16은 유용합니다 :)\n",
 };
 
 inline void putws_win32(wchar_t *str)
@@ -29,14 +29,15 @@ inline void putws_win32(wchar_t *str)
 }
 
 int main()
-{	
+{
 	/*
 	Using Win32 API Unicode Functions,
 	Handling Unicode is simple, but only available on Windows.
 	*/
 
 	// Method 1: These are example of using WriteConsoleW.
-	for(auto iter : str) {
+	for (auto iter : str)
+	{
 		putws_win32(iter);
 	}
 	putws_win32(L"\n");
@@ -56,17 +57,18 @@ int main()
 	_setmode(_fileno(stdin), _O_U16TEXT);
 	_setmode(_fileno(stdout), _O_U16TEXT);
 	_setmode(_fileno(stderr), _O_U16TEXT);
-	
+
 	// Optimization
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 
 	// Method 2: This is example of using wcout.
-	for(auto iter: str) {
-		wcout<<iter;
+	for (auto iter : str)
+	{
+		wcout << iter;
 	}
-	wcout<<endl;
+	wcout << endl;
 
 	return 0;
 }
