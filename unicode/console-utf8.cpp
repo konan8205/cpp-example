@@ -11,10 +11,6 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <io.h>
-
-#ifndef _O_U8TEXT
-#define _O_U8TEXT 0x00040000
-#endif // _O_U8TEXT
 #endif // _WIN32
 
 using namespace std;
