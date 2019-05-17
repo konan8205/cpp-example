@@ -1,7 +1,7 @@
 /*
     Shinwoo Park
     natural7530@gmail.com
-    
+
     MIT License
 */
 
@@ -19,9 +19,7 @@ int main()
 {
 #ifdef _WIN32
 	/*
-	Reference:
-	https://docs.microsoft.com/en-us/windows/console/console-reference
-	https://docs.microsoft.com/en-us/windows/desktop/Intl/code-page-identifiers
+	https://docs.microsoft.com/en-us/windows/console/setconsolecp
 	*/
 	SetConsoleCP(CP_UTF8);
 	SetConsoleOutputCP(CP_UTF8);
