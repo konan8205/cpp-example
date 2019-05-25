@@ -8,12 +8,9 @@
 #include <iostream>
 
 #ifdef _WIN32
+#include <fcntl.h>
 #include <io.h>
 #include <windows.h>
-
-#ifndef _O_U16TEXT
-#define _O_U16TEXT 0x00020000
-#endif // _O_U16TEXT
 #endif // _WIN32
 
 using namespace std;

@@ -9,7 +9,6 @@
 #include <locale>
 
 #ifdef _WIN32
-#include <io.h>
 #include <windows.h>
 #endif // _WIN32
 
