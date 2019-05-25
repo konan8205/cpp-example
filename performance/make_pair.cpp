@@ -12,19 +12,11 @@
 using namespace std;
 using namespace std::chrono;
 
-duration<double> t, t2, t3;
+duration<double> t[3];
 pair<int, int> p;
 
 int main()
 {
-	// Optimization
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-
-	cout.precision(2);
-	cout.setf(ios::fixed);
-
 	/*
 	To speed up C++ STL containers like vector or deque,
 	use customized allocator that reduces system call of memory allocation.
@@ -37,8 +29,7 @@ int main()
 	}
 
 	auto ed = high_resolution_clock::now();
-	t = ed - st;
-	cout << "make_pair:\t\t" << t.count() << endl;
+	t[0] = ed - st;
 
 	// pair
 	st = high_resolution_clock::now();
@@ -47,8 +38,7 @@ int main()
 	}
 
 	ed = high_resolution_clock::now();
-	t2 = ed - st;
-	cout << "pair:\t\t\t" << t2.count() << endl;
+	t[1] = ed - st;
 
 	// native
 	st = high_resolution_clock::now();
@@ -57,11 +47,24 @@ int main()
 	}
 
 	ed = high_resolution_clock::now();
-	t3 = ed - st;
-	cout << "native:\t\t\t" << t3.count() << endl;
+	t[2] = ed - st;
 
-	cout << "make_pair/native:\t" << t.count() / t3.count() << endl;
-	cout << "pair/native:\t\t" << t2.count() / t3.count() << endl;
+	/* print all results */
+
+	// Optimization
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cout.precision(2);
+	cout.setf(ios::fixed);
+
+	cout << "make_pair:\t\t" << t[0].count() << endl
+	     << "pair:\t\t\t" << t[1].count() << endl
+	     << "native:\t\t\t" << t[2].count() << endl
+	     << endl
+	     << "make_pair/native:\t" << t[0].count() / t[2].count() << endl
+	     << "pair/native:\t\t" << t[1].count() / t[2].count() << endl;
 
 	return 0;
 }
