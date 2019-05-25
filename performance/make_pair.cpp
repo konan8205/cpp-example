@@ -12,7 +12,7 @@
 using namespace std;
 using namespace std::chrono;
 
-duration<double> t, t2;
+duration<double> t, t2, t3;
 pair<int, int> p;
 
 int main()
@@ -40,6 +40,16 @@ int main()
 	t = ed - st;
 	cout << "make_pair:\t\t" << t.count() << endl;
 
+	// pair
+	st = high_resolution_clock::now();
+	for (int i = 0; i < 1e8; ++i) {
+		p = pair<int, int>(i, i);
+	}
+
+	ed = high_resolution_clock::now();
+	t2 = ed - st;
+	cout << "pair:\t\t\t" << t2.count() << endl;
+
 	// native
 	st = high_resolution_clock::now();
 	for (int i = 0; i < 1e8; ++i) {
@@ -47,10 +57,11 @@ int main()
 	}
 
 	ed = high_resolution_clock::now();
-	t2 = ed - st;
-	cout << "native:\t\t\t" << t2.count() << endl;
+	t3 = ed - st;
+	cout << "native:\t\t\t" << t3.count() << endl;
 
-	cout << "make_pair/native:\t" << t.count() / t2.count() << endl;
+	cout << "make_pair/native:\t" << t.count() / t3.count() << endl;
+	cout << "pair/native:\t\t" << t2.count() / t3.count() << endl;
 
 	return 0;
 }
