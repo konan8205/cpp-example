@@ -14,10 +14,11 @@
 #include <fcntl.h>
 #include <io.h>
 #include <windows.h>
-#endif // _WIN32
+#endif
 
 using namespace std;
 
+// The default flag for regex is to use ECMAScript
 #define STR(T) T##"내가 그린 기린 그림은 잘 그린 기린 그림이고 네가 그린 기린 그림은 잘 못 그린 기린 그림이다."
 #define STR_REPLACE(T) T##"하마 그림"
 #define STR_REGEX(T) T##"기린 .* 그림"
@@ -31,7 +32,7 @@ wregex str_regex(STR_REGEX(L));
 string str = STR(u8);
 string str_replace = STR_REPLACE(u8);
 regex str_regex(STR_REGEX(u8));
-#endif // _WIN32
+#endif
 
 int main()
 {
@@ -43,7 +44,7 @@ int main()
 #else
 	cin.tie(NULL);
 	cout.tie(NULL);
-#endif // _WIN32
+#endif
 
 #ifdef _WIN32
 	_setmode(_fileno(stdin), _O_U16TEXT);
@@ -59,7 +60,7 @@ int main()
 	cout << str << endl;
 	str = regex_replace(str, str_regex, str_replace);
 	cout << str << endl;
-#endif // _WIN32
+#endif
 
 	return 0;
 }

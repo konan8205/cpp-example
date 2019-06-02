@@ -11,7 +11,7 @@
 #include <fcntl.h>
 #include <io.h>
 #include <windows.h>
-#endif // _WIN32
+#endif
 
 using namespace std;
 
@@ -24,7 +24,7 @@ int main()
 	_setmode(_fileno(stdin), _O_U16TEXT);
 	_setmode(_fileno(stdout), _O_U16TEXT);
 	_setmode(_fileno(stderr), _O_U16TEXT);
-#endif // _WIN32
+#endif
 
 	// Optimization
 	ios_base::sync_with_stdio(false);

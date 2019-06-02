@@ -6,11 +6,12 @@
 */
 
 #include <iostream>
-#include <locale>
 
 #ifdef _WIN32
 #include <windows.h>
-#endif // _WIN32
+#else
+#include <locale>
+#endif
 
 using namespace std;
 
@@ -24,7 +25,7 @@ int main()
 	SetConsoleOutputCP(CP_UTF8);
 #else
 	locale::global(locale("en_US.UTF-8"));
-#endif // _WIN32
+#endif
 
 	// Optimization
 	ios_base::sync_with_stdio(false);

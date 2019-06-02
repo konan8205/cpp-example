@@ -7,12 +7,14 @@
 
 #include <chrono>
 #include <iostream>
+#include <string>
 
 #include <cstdio>
 
 using namespace std;
 using namespace std::chrono;
 
+string str = "abcdefghijklnmopqrstuvwxyz";
 duration<double> t[4];
 
 int main()
@@ -22,17 +24,19 @@ int main()
 	std::cout is fast enough.
 	*/
 
-	/* cout */
+	high_resolution_clock::time_point st, ed;
+
+	// cout
 	cout.flush();
-	auto st = high_resolution_clock::now();
+	st = high_resolution_clock::now();
 	for (int i = 0; i < 1e4; ++i) {
-		cout << "abcdefghijklnmopqrstuvwxyz" << endl;
+		cout << str << endl;
 	}
 
-	auto ed = high_resolution_clock::now();
+	ed = high_resolution_clock::now();
 	t[0] = ed - st;
 
-	/* cout optimized */
+	// cout optimized
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
@@ -40,7 +44,7 @@ int main()
 	cout.flush();
 	st = high_resolution_clock::now();
 	for (int i = 0; i < 1e4; ++i) {
-		cout << "abcdefghijklnmopqrstuvwxyz" << endl;
+		cout << str << endl;
 	}
 
 	ed = high_resolution_clock::now();
@@ -49,21 +53,21 @@ int main()
 	// prepare for c functions
 	ios_base::sync_with_stdio(true);
 
-	/* printf */
+	// printf
 	fflush(stdout);
 	st = high_resolution_clock::now();
 	for (int i = 0; i < 1e4; ++i) {
-		printf("abcdefghijklnmopqrstuvwxyz\n");
+		printf("%s\n", str.data());
 	}
 
 	ed = high_resolution_clock::now();
 	t[2] = ed - st;
 
-	/* puts */
+	// puts
 	fflush(stdout);
 	st = high_resolution_clock::now();
 	for (int i = 0; i < 1e4; ++i) {
-		puts("abcdefghijklnmopqrstuvwxyz");
+		puts(str.data());
 	}
 
 	ed = high_resolution_clock::now();
@@ -78,7 +82,7 @@ int main()
 	system("cls");
 #else
 	system("clear; clear");
-#endif // _WIN32
+#endif
 
 	cout.precision(2);
 	cout.setf(ios::fixed);
