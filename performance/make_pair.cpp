@@ -14,13 +14,12 @@ std::chrono::duration<double> d[3];
 
 int main()
 {
-	using high_resolution_clock = std::chrono::high_resolution_clock;
-
 	/*
 	To speed up C++ STL containers like vector or deque,
 	use customized allocator that reduces system call of memory allocation.
 	*/
 
+	using high_resolution_clock = std::chrono::high_resolution_clock;
 	high_resolution_clock::time_point st, ed;
 
 	/* make_pair */

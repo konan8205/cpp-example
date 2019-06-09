@@ -16,13 +16,12 @@ std::chrono::duration<double> t[4];
 
 int main()
 {
-	using high_resolution_clock = std::chrono::high_resolution_clock;
-
 	/*
 	If you set ios_base::sync_with_stdio(false),
 	std::cout is fast enough.
 	*/
 
+	using high_resolution_clock = std::chrono::high_resolution_clock;
 	high_resolution_clock::time_point st, ed;
 
 	// cout

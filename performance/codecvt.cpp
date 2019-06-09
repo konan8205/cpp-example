@@ -24,22 +24,24 @@
 	   "여기 계신 이 분이 백 법학박사이시다."
 
 #ifdef _WIN32
-std::wstring str = STR(L);
+const std::wstring str = STR(L);
 #else
-std::u16string str = STR(u);
+const std::u16string str = STR(u);
 #endif
 std::string str_cvt;
 std::chrono::duration<double> d[2];
 
 int main()
 {
-	using high_resolution_clock = std::chrono::high_resolution_clock;
-
 	/*
 	codecvt is useful because it is fast enough,
 	but the available character encodings are limited.
 	*/
+
+	using high_resolution_clock = std::chrono::high_resolution_clock;
 	high_resolution_clock::time_point st, ed;
+
+	str_cvt.reserve(512);
 
 	/* codecvt */
 	{
@@ -58,11 +60,12 @@ int main()
 		mbstate_t mb{};
 
 		for (int i = 0; i < 1e7; ++i) {
-			int size = str.size() * 2;
+			int size = str.size() * 4;
 			str_cvt.resize(size);
 			// 'str[str.size()]' is the shortest way to implement this code
 			f.out(mb, &str[0], &str[str.size()], from_next, &str_cvt[0],
 			      &str_cvt[size], to_next);
+			// std::string does not require '\0' at the end of the string
 			str_cvt.resize(to_next - &str_cvt[0]);
 		}
 
@@ -114,12 +117,13 @@ int main()
 
 			char *str_ptr = (char *)(str.data());
 			char *str_cvt_ptr = (char *)(str_cvt.data());
-			str_cvt_size =
+			size_t res =
 			    iconv(cd, &str_ptr, &str_size, &str_cvt_ptr, &str_cvt_size);
-			if (str_cvt_size == -1) {
+			if (res == (size_t)-1) {
+				std::cerr << "iconv() error" << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
-			str_cvt.resize(str_cvt_size);
+			str_cvt.resize(str_cvt_ptr - &str_cvt[0]);
 		}
 
 		iconv_close(cd);
