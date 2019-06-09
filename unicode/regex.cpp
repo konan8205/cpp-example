@@ -26,12 +26,12 @@
 #ifdef _WIN32
 // In Windows, there is no way to use regex with UTF-8 directly.
 std::wstring str = STR(L);
-std::wstring str_replace = STR_REPLACE(L);
-std::wregex str_regex(STR_REGEX(L));
+const std::wstring str_replace = STR_REPLACE(L);
+const std::wregex str_regex(STR_REGEX(L));
 #else
 std::string str = STR(u8);
-std::string str_replace = STR_REPLACE(u8);
-std::regex str_regex(STR_REGEX(u8));
+const std::string str_replace = STR_REPLACE(u8);
+const std::regex str_regex(STR_REGEX(u8));
 #endif
 
 int main()
