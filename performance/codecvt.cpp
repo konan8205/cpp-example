@@ -57,7 +57,7 @@ int main()
 		const char16_t *from_next;
 #endif
 		char *to_next;
-		mbstate_t mb{};
+		std::mbstate_t mb{};
 
 		for (int i = 0; i < 1e7; ++i) {
 			int size = str.size() * 4;
