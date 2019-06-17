@@ -9,8 +9,12 @@
 
 class Class : public IClass {
 public:
-	int Square(int num) override {
-		return num * num;
+	int Pow(int base, int exp) override {
+		int num = 1;
+		for (int i = 0; i < exp; ++i) {
+			num *= base;
+		}
+		return num;
 	};
 	~Class(){};
 };

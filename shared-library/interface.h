@@ -2,7 +2,7 @@
 class IClass {
 public:
 	int var;
-	IClass() : var(6){};
+	IClass() : var(2){};
 	virtual ~IClass(){};
-	virtual int Square(int num) = 0;
+	virtual int Pow(int base, int exp) = 0;
 };
