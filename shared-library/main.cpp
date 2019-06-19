@@ -3,18 +3,39 @@
 #include <functional>
 #include <iostream>
 
-#if _WIN32
+#ifdef _WIN32
 #define NOMINMAX
 #include <Windows.h>
+
+// UTF-16 support
+#include <fcntl.h>
+#include <io.h>
+
 #else
 #include <cstring>
 #include <string>
 
 #include <dlfcn.h>
+#include <string.h>
 #include <unistd.h>
 #endif
 
 #include "interface.h"
+
+inline void print_error() {
+#ifdef _WIN32
+	wchar_t error[1024];
+
+	FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+	               NULL, GetLastError(),
+	               MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), error,
+	               sizeof(error) / sizeof(wchar_t), NULL);
+
+	std::wcerr << error << std::endl;
+#else
+	std::cerr << dlerror() << std::endl;
+#endif
+}
 
 int main() {
 	using PFN_CreateClass = IClass *(*)();
@@ -22,9 +43,12 @@ int main() {
 
 	/* Load a library */
 #if _WIN32
+	// stderr must be handled with wide character functions
+	_setmode(_fileno(stderr), _O_U16TEXT);
+
 	HINSTANCE dl_handle = LoadLibraryA("library.dll");
 	if (!dl_handle) {
-		std::cerr << "Cannot load a library" << std::endl;
+		print_error();
 		std::exit(EXIT_FAILURE);
 	}
 
@@ -35,7 +59,7 @@ int main() {
 #else
 	void *dl_handle = dlopen("./library.so", RTLD_NOW);
 	if (!dl_handle) {
-		std::cerr << dlerror() << std::endl;
+		print_error();
 		std::exit(EXIT_FAILURE);
 	}
 
@@ -46,7 +70,7 @@ int main() {
 #endif
 
 	if (CreateClass == NULL || DestroyClass == NULL) {
-		std::cerr << "Cannot get function address" << std::endl;
+		print_error();
 		std::exit(EXIT_FAILURE);
 	}
 
