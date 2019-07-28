@@ -1,8 +1,12 @@
 
 class IClass {
 public:
-	int var;
-	IClass() : var(2){};
+	IClass(){};
 	virtual ~IClass(){};
+	virtual int GetVar() = 0;
+	virtual void SetVar(int arg) = 0;
 	virtual int Pow(int base, int exp) = 0;
 };
+
+using PFN_CreateClass = IClass *(*)();
+using PFN_DestroyClass = void (*)(IClass *);
