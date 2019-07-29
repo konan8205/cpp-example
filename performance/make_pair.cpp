@@ -1,8 +1,8 @@
 /*
-    Shinwoo Park
-    natural7530@gmail.com
+	Shinwoo Park
+	natural7530@gmail.com
 
-    CC0 1.0 Universal
+	CC0 1.0 Universal
 */
 
 #include <chrono>
@@ -10,7 +10,7 @@
 #include <utility>
 
 std::pair<int, int> p;
-std::chrono::duration<double> d[3];
+std::chrono::duration<double> res[3];
 
 int main() {
 	/*
@@ -29,7 +29,7 @@ int main() {
 		}
 
 		ed = high_resolution_clock::now();
-		d[0] = ed - st;
+		res[0] = ed - st;
 	}
 
 	/* pair */
@@ -40,7 +40,7 @@ int main() {
 		}
 
 		ed = high_resolution_clock::now();
-		d[1] = ed - st;
+		res[1] = ed - st;
 	}
 
 	/* native */
@@ -51,7 +51,7 @@ int main() {
 		}
 
 		ed = high_resolution_clock::now();
-		d[2] = ed - st;
+		res[2] = ed - st;
 	}
 
 	/* print all results */
@@ -64,13 +64,15 @@ int main() {
 	std::cout.precision(2);
 	std::cout.setf(std::ios::fixed);
 
-	std::cout << "make_pair:\t\t" << d[0].count() << std::endl
-	          << "pair:\t\t\t" << d[1].count() << std::endl
-	          << "native:\t\t\t" << d[2].count() << std::endl
-	          << std::endl
-	          << "make_pair/native:\t" << d[0].count() / d[2].count()
-	          << std::endl
-	          << "pair/native:\t\t" << d[1].count() / d[2].count() << std::endl;
+	std::cout << "make_pair:\t\t" << res[0].count() << std::endl
+			  << "pair:\t\t\t" << res[1].count() << std::endl
+			  << "native:\t\t\t" << res[2].count() << std::endl
+			  << std::endl;
+
+	std::cout << "make_pair/native:\t" << res[0].count() / res[2].count()
+			  << std::endl
+			  << "pair/native:\t\t" << res[1].count() / res[2].count()
+			  << std::endl;
 
 	return 0;
 }

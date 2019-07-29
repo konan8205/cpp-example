@@ -1,8 +1,8 @@
 /*
-    Shinwoo Park
-    natural7530@gmail.com
+	Shinwoo Park
+	natural7530@gmail.com
 
-    CC0 1.0 Universal
+	CC0 1.0 Universal
 */
 
 #include <chrono>
@@ -95,15 +95,15 @@ int main() {
 #endif
 
 	std::cout << std::endl
-	          << "cout:\t\t\t" << t[0].count() << std::endl
-	          << "cout optimized:\t\t" << t[1].count() << std::endl
-	          << "printf:\t\t\t" << t[2].count() << std::endl
-	          << "puts:\t\t\t" << t[3].count() << std::endl
-	          << std::endl
-	          << "cout/printf:\t\t" << t[0].count() / t[2].count() << std::endl
-	          << "cout optimized/printf:\t" << t[1].count() / t[2].count()
-	          << std::endl
-	          << "puts/printf:\t\t" << t[2].count() / t[3].count() << std::endl;
+			  << "cout:\t\t\t" << t[0].count() << std::endl
+			  << "cout optimized:\t\t" << t[1].count() << std::endl
+			  << "printf:\t\t\t" << t[2].count() << std::endl
+			  << "puts:\t\t\t" << t[3].count() << std::endl
+			  << std::endl;
+	std::cout << "cout/printf:\t\t" << t[0].count() / t[2].count() << std::endl
+			  << "cout optimized/printf:\t" << t[1].count() / t[2].count()
+			  << std::endl
+			  << "puts/printf:\t\t" << t[2].count() / t[3].count() << std::endl;
 
 	return 0;
 }

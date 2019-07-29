@@ -1,8 +1,8 @@
 /*
-    Shinwoo Park
-    natural7530@gmail.com
+	Shinwoo Park
+	natural7530@gmail.com
 
-    CC0 1.0 Universal
+	CC0 1.0 Universal
 */
 
 #include <chrono>
@@ -65,7 +65,8 @@ int main() {
 			str_cvt.resize(size);
 			// 'str[str.size()]' is the shortest way to implement this code
 			f.out(mb, &str[0], &str[str.size()], from_next, &str_cvt[0],
-			      &str_cvt[size], to_next);
+				  &str_cvt[size], to_next);
+
 			// std::string does not require '\0' at the end of the string
 			str_cvt.resize(to_next - &str_cvt[0]);
 		}
@@ -85,7 +86,7 @@ int main() {
 			It is possible to count the number of characters.
 
 			int size = WideCharToMultiByte(CP_UTF8, 0, (wchar_t *)str.c_str(),
-			                               str.size(), NULL, 0, NULL, NULL);
+										   str.size(), NULL, 0, NULL, NULL);
 			*/
 			int size = str.size() * 2;
 			str_cvt.resize(size);
@@ -95,8 +96,9 @@ int main() {
 			because some functions recongize it as 'const char *'
 			*/
 			size =
-			    WideCharToMultiByte(CP_UTF8, 0, (wchar_t *)&str[0], str.size(),
-			                        &str_cvt[0], str_cvt.size(), NULL, NULL);
+				WideCharToMultiByte(CP_UTF8, 0, (wchar_t *)&str[0], str.size(),
+									&str_cvt[0], str_cvt.size(), NULL, NULL);
+
 			str_cvt.resize(size);
 		}
 
@@ -118,7 +120,7 @@ int main() {
 			char *str_ptr = (char *)(str.data());
 			char *str_cvt_ptr = (char *)(str_cvt.data());
 			size_t res =
-			    iconv(cd, &str_ptr, &str_size, &str_cvt_ptr, &str_cvt_size);
+				iconv(cd, &str_ptr, &str_size, &str_cvt_ptr, &str_cvt_size);
 			if (res == (size_t)-1) {
 				std::cerr << "iconv() error" << std::endl;
 				std::exit(EXIT_FAILURE);
@@ -146,13 +148,13 @@ int main() {
 
 #ifdef _WIN32
 	std::cout << "codecvt:\t\t\t" << d[0].count() << std::endl
-	          << "WideCharToMultiByte:\t\t" << d[1].count() << std::endl
-	          << "codecvt/WideCharToMultiByte:\t" << d[0].count() / d[1].count()
-	          << std::endl;
+			  << "WideCharToMultiByte:\t\t" << d[1].count() << std::endl
+			  << "codecvt/WideCharToMultiByte:\t" << d[0].count() / d[1].count()
+			  << std::endl;
 #else
 	std::cout << "codecvt:\t" << d[0].count() << std::endl
-	          << "iconv:\t\t" << d[1].count() << std::endl
-	          << "codecvt/iconv:\t" << d[0].count() / d[1].count() << std::endl;
+			  << "iconv:\t\t" << d[1].count() << std::endl
+			  << "codecvt/iconv:\t" << d[0].count() / d[1].count() << std::endl;
 #endif
 
 	return 0;
