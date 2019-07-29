@@ -3,6 +3,7 @@ class IClass {
 protected:
 	IClass(){};
 	~IClass(){};
+
 public:
 	virtual int GetVar() = 0;
 	virtual void SetVar(int arg) = 0;

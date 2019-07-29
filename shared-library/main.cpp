@@ -5,10 +5,8 @@
 #ifdef _WIN32
 #define NOMINMAX
 #include <Windows.h>
-
 #else
 #include <dlfcn.h>
-
 #endif
 
 #include "interface.h"
@@ -17,12 +15,8 @@ inline void dl_error() {
 #ifdef _WIN32
 	char error[1024];
 	FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-				   NULL,
-				   GetLastError(),
-				   LANG_USER_DEFAULT,
-				   error,
-				   sizeof(error) / sizeof(char),
-				   NULL);
+				   NULL, GetLastError(), LANG_USER_DEFAULT, error,
+				   sizeof(error) / sizeof(char), NULL);
 
 	// Use the current system encoding
 	std::cerr << error << std::endl;
