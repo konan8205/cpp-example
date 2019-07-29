@@ -1,8 +1,9 @@
 
 class IClass {
-public:
+protected:
 	IClass(){};
-	virtual ~IClass(){};
+	~IClass(){};
+public:
 	virtual int GetVar() = 0;
 	virtual void SetVar(int arg) = 0;
 	virtual int Pow(int base, int exp) = 0;
