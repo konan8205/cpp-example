@@ -7,7 +7,6 @@ AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
 AlwaysBreakTemplateDeclarations: Yes
-BinPackArguments: false
 IndentWidth: 4
 TabWidth: 4
 UseTab: ForContinuationAndIndentation
