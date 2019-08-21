@@ -6,8 +6,10 @@ private:
 	int var;
 
 public:
-	Class() : var(0){};
-	~Class(){};
+	Class() : var(0) {
+	}
+	virtual ~Class() {
+	}
 
 	virtual int GetVar() override {
 		return var;
@@ -27,17 +29,17 @@ public:
 };
 
 #ifdef _WIN32
-#define LIB_API __declspec(dllexport)
+#define DL_EXPORT extern __declspec(dllexport)
 #else
-#define LIB_API
+#define DL_EXPORT extern
 #endif
 
 extern "C" {
-extern LIB_API Class *CreateClass() {
+DL_EXPORT Class *CreateClass() {
 	return new Class;
 }
 
-extern LIB_API void DestroyClass(Class *ptr) {
+DL_EXPORT void DestroyClass(Class *ptr) {
 	delete ptr;
 }
 }
