@@ -1,8 +1,8 @@
 /*
-    Shinwoo Park
-    natural7530@gmail.com
+	Shinwoo Park
+	natural7530@gmail.com
 
-    CC0 1.0 Universal
+	CC0 1.0 Universal
 */
 
 #include <iostream>
@@ -29,8 +29,8 @@ int main() {
 	std::cout.tie(NULL);
 
 	std::wcout << L"UTF-16 is useful :)" << std::endl
-	           << L"UTF-16は有用です :)" << std::endl
-	           << L"UTF-16은 유용합니다 :)" << std::endl;
+			   << L"UTF-16は有用です :)" << std::endl
+			   << L"UTF-16은 유용합니다 :)" << std::endl;
 
 	return 0;
 }

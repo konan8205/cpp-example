@@ -1,3 +1,9 @@
+/*
+	Shinwoo Park
+	natural7530@gmail.com
+
+	CC0 1.0 Universal
+*/
 
 #include "interface.h"
 

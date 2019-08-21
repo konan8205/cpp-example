@@ -1,8 +1,8 @@
 /*
-    Shinwoo Park
-    natural7530@gmail.com
+	Shinwoo Park
+	natural7530@gmail.com
 
-    CC0 1.0 Universal
+	CC0 1.0 Universal
 */
 
 #include <iostream>
@@ -32,8 +32,8 @@ int main() {
 	std::cout.tie(NULL);
 
 	std::cout << u8"UTF-8 is beautiful :)" << std::endl
-	          << u8"UTF-8は美しいです :)" << std::endl
-	          << u8"UTF-8은 아름답습니다 :)" << std::endl;
+			  << u8"UTF-8は美しいです :)" << std::endl
+			  << u8"UTF-8은 아름답습니다 :)" << std::endl;
 
 	return 0;
 }
