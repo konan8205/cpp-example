@@ -26,7 +26,7 @@ std::wstring input_comp;
 Get a unicode character from keyboard
 */
 
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
+LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
 							LPARAM lParam) {
 	switch (uMsg) {
 	case WM_IME_COMPOSITION: {
@@ -40,14 +40,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 			input_comp.push_back(wParam);
 		}
 
-		InvalidateRect(hwnd, NULL, TRUE);
+		InvalidateRect(hWnd, NULL, TRUE);
 		return 0;
 	}
 
 	case WM_IME_ENDCOMPOSITION: {
 		input_comp.clear();
-
-		InvalidateRect(hwnd, NULL, TRUE);
 		return 0;
 	}
 
@@ -84,25 +82,25 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 			break;
 		}
 
-		InvalidateRect(hwnd, NULL, TRUE);
+		InvalidateRect(hWnd, NULL, TRUE);
 		return 0;
 	}
 
 	case WM_PAINT: {
 		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(hwnd, &ps);
+		HDC hdc = BeginPaint(hWnd, &ps);
 
 		// Fill the background as white
 		HBRUSH brushWhite = CreateSolidBrush(RGB(255, 255, 255));
 		RECT rectWindow;
-		GetClientRect(hwnd, &rectWindow);
+		GetClientRect(hWnd, &rectWindow);
 		FillRect(hdc, &rectWindow, brushWhite);
 
 		// Print the text
 		std::wstring output_text = L"Input: " + input_str + input_comp;
 		TextOutW(hdc, 16, 16, output_text.data(), output_text.size());
 
-		EndPaint(hwnd, &ps);
+		EndPaint(hWnd, &ps);
 
 		return 0;
 	}
@@ -113,7 +111,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 	}
 	}
 
-	return DefWindowProcW(hwnd, uMsg, wParam, lParam);
+	return DefWindowProcW(hWnd, uMsg, wParam, lParam);
 }
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
@@ -125,14 +123,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	RegisterClassW(&wc);
 
-	HWND hwnd = CreateWindowExW(
-		0, wc.lpszClassName, L"unicode-keyboard", WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, NULL, NULL, hInstance, NULL);
-	if (!hwnd) {
+	HWND hWnd = CreateWindowExW(0, wc.lpszClassName, L"unicode-keyboard",
+								WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU,
+								CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, NULL,
+								NULL, hInstance, NULL);
+	if (!hWnd) {
 		return 0;
 	}
 
-	ShowWindow(hwnd, nCmdShow);
+	ShowWindow(hWnd, nCmdShow);
 
 	MSG msg;
 	while (GetMessageW(&msg, NULL, 0, 0)) {
