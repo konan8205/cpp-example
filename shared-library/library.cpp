@@ -1,37 +1,37 @@
 /*
-	Shinwoo Park
-	natural7530@gmail.com
+    Shinwoo Park
+    natural7530@gmail.com
 
-	CC0 1.0 Universal
+    CC0 1.0 Universal
 */
 
 #include "interface.h"
 
 class Class : public IClass {
 private:
-	int var;
+    int var;
 
 public:
-	Class() : var(0) {
-	}
-	virtual ~Class() {
-	}
+    Class() : var(0) {
+    }
+    virtual ~Class() {
+    }
 
-	virtual int GetVar() override {
-		return var;
-	}
+    virtual int GetVar() override {
+        return var;
+    }
 
-	virtual void SetVar(int arg) override {
-		var = arg;
-	}
+    virtual void SetVar(int arg) override {
+        var = arg;
+    }
 
-	virtual int Pow(int base, int exp) override {
-		int num = 1;
-		for (int i = 0; i < exp; ++i) {
-			num *= base;
-		}
-		return num;
-	}
+    virtual int Pow(int base, int exp) override {
+        int num = 1;
+        for (int i = 0; i < exp; ++i) {
+            num *= base;
+        }
+        return num;
+    }
 };
 
 #ifdef _WIN32
@@ -42,10 +42,10 @@ public:
 
 extern "C" {
 DL_EXPORT Class *CreateClass() {
-	return new Class;
+    return new Class;
 }
 
 DL_EXPORT void DestroyClass(Class *ptr) {
-	delete ptr;
+    delete ptr;
 }
 }
