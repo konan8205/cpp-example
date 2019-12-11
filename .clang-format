@@ -1,3 +1,4 @@
+# clang-format 9.0 or later is required
 BasedOnStyle: LLVM
 AccessModifierOffset: -4
 AlignEscapedNewlines: DontAlign
@@ -5,9 +6,11 @@ AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: false
+AllowShortLambdasOnASingleLine: None
 AllowShortLoopsOnASingleLine: false
 AlwaysBreakTemplateDeclarations: Yes
 BreakBeforeBraces: Custom
+BreakConstructorInitializers: BeforeComma
 BraceWrapping:
     AfterClass: false
     AfterControlStatement: false
