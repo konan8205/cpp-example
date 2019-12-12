@@ -8,23 +8,21 @@
 #ifndef UNICODE
 #define UNICODE
 #endif
-
-#ifndef NOMINMAX
 #define NOMINMAX
-#endif
 
 #pragma warning(disable : 28251)
 
-#include <string>
-
 #include <Windows.h>
-
-std::wstring input_str;
-std::wstring input_comp;
+#include <string>
 
 /*
 Get a unicode character from keyboard
 */
+
+std::wstring input_str;
+std::wstring input_comp;
+
+HFONT g_hFont;
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
                             LPARAM lParam) {
@@ -40,7 +38,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
             // GCS_COMPSTR
             input_comp.push_back(wParam);
         }
-
         InvalidateRect(hWnd, NULL, TRUE);
         return 0;
     }
@@ -64,7 +61,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
                 input_str.size() >= 2) {
                 input_str.pop_back();
             }
-
             input_str.pop_back();
             break;
         }
@@ -91,15 +87,25 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        // Fill the background as white
-        HBRUSH brushWhite = CreateSolidBrush(RGB(255, 255, 255));
         RECT rectWindow;
         GetClientRect(hWnd, &rectWindow);
+
+        // Fill the background as white
+        HBRUSH brushWhite = CreateSolidBrush(RGB(255, 255, 255));
         FillRect(hdc, &rectWindow, brushWhite);
 
         // Print the text
+        RECT rectText = rectWindow;
+        rectText.left += 16;
+        rectText.top += 16;
+        rectText.right -= 16;
+        rectText.bottom -= 16;
+
+        SelectObject(hdc, g_hFont);
+
         std::wstring output_text = L"Input: " + input_str + input_comp;
-        TextOutW(hdc, 16, 16, output_text.data(), output_text.size());
+        DrawTextW(hdc, output_text.data(), -1, &rectText,
+                  DT_LEFT | DT_WORDBREAK);
 
         EndPaint(hWnd, &ps);
 
@@ -120,15 +126,24 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     WNDCLASSW wc = {};
     wc.lpfnWndProc = WindowProc;
     wc.hInstance = hInstance;
-    wc.lpszClassName = L"Main";
+    wc.lpszClassName = L"im_win32";
 
     RegisterClassW(&wc);
 
-    HWND hWnd = CreateWindowExW(0, wc.lpszClassName, L"unicode-keyboard",
+    HWND hWnd = CreateWindowExW(0, wc.lpszClassName, L"im_win32",
                                 WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU,
-                                CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, NULL,
+                                CW_USEDEFAULT, CW_USEDEFAULT, 320, 240, NULL,
                                 NULL, hInstance, NULL);
     if (!hWnd) {
+        return 0;
+    }
+
+    g_hFont =
+        CreateFontW(20, 0, 0, 0, FW_REGULAR, FALSE, FALSE, FALSE,
+                    DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+                    CLEARTYPE_QUALITY, FF_DONTCARE, L"Segoe UI");
+    if (!g_hFont) {
+        DestroyWindow(hWnd);
         return 0;
     }
 
