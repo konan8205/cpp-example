@@ -6,5 +6,5 @@ if (!(Test-Path -Path $OUTPUT_DIR )) {
     New-Item -ItemType Directory -Path $OUTPUT_DIR
 }
 
-clang++ -o "$OUTPUT_DIR/main.exe" -I"$PWD" main.cpp
-clang++ -shared -o "$OUTPUT_DIR/library.dll" -I"$PWD" library.cpp
+clang++ -o "$OUTPUT_DIR/sl_main.exe" -I"$PWD" sl_main.cpp
+clang++ -shared -o "$OUTPUT_DIR/sl_lib.dll" -I"$PWD" sl_lib.cpp

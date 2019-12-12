@@ -5,7 +5,7 @@
     CC0 1.0 Universal
 */
 
-#include "interface.h"
+#include "sl_interface.h"
 
 class Class : public IClass {
 private:

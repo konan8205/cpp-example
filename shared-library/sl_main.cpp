@@ -15,7 +15,7 @@
 #include <dlfcn.h>
 #endif
 
-#include "interface.h"
+#include "sl_interface.h"
 
 inline void dl_error() {
 #ifdef _WIN32
@@ -42,7 +42,7 @@ inline void dl_assert(T expr) {
 int main() {
     /* Load a library */
 #if _WIN32
-    HINSTANCE dl_handle = LoadLibraryA("library.dll");
+    HINSTANCE dl_handle = LoadLibraryA("sl_lib.dll");
     dl_assert(dl_handle);
 
     PFN_CreateClass CreateClass = reinterpret_cast<PFN_CreateClass>(
@@ -54,7 +54,7 @@ int main() {
     dl_assert(DestroyClass);
 
 #else
-    void *dl_handle = dlopen("./library.so", RTLD_NOW);
+    void *dl_handle = dlopen("./sl_lib.so", RTLD_NOW);
     dl_assert(dl_handle);
 
     PFN_CreateClass CreateClass =
