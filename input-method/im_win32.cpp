@@ -123,6 +123,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                     PWSTR pCmdLine, int nCmdShow) {
+    /* Window */
     WNDCLASSW wc = {};
     wc.lpfnWndProc = WindowProc;
     wc.hInstance = hInstance;
@@ -135,18 +136,20 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                                 CW_USEDEFAULT, CW_USEDEFAULT, 320, 240, NULL,
                                 NULL, hInstance, NULL);
     if (!hWnd) {
-        return 0;
+        return 1;
     }
 
+    /* Static font */
     g_hFont =
         CreateFontW(20, 0, 0, 0, FW_REGULAR, FALSE, FALSE, FALSE,
                     DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
                     CLEARTYPE_QUALITY, FF_DONTCARE, L"Segoe UI");
     if (!g_hFont) {
         DestroyWindow(hWnd);
-        return 0;
+        return 1;
     }
 
+    /* Loop */
     ShowWindow(hWnd, nCmdShow);
 
     MSG msg;
