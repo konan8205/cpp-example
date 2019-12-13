@@ -14,7 +14,7 @@ BreakConstructorInitializers: BeforeComma
 BraceWrapping:
     AfterClass: false
     AfterControlStatement: false
-    AfterEnum: true
+    AfterEnum: false
     AfterFunction: false
     AfterNamespace: false
     AfterObjCDeclaration: false
