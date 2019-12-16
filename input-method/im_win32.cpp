@@ -10,8 +10,6 @@
 #endif
 #define NOMINMAX
 
-#pragma warning(disable : 28251)
-
 #include <Windows.h>
 #include <string>
 
@@ -19,23 +17,36 @@
 Get a unicode character from keyboard
 */
 
+struct window_s {
+    wchar_t *name;
+    int32_t width, height;
+    uint32_t style;
+    COLORREF background;
+};
+
+constexpr window_s im_window = {
+    (wchar_t *)L"im_win32",
+    320,
+    240,
+    WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU,
+    RGB(255, 255, 255),
+};
+
+HFONT im_window_font;
+
 std::wstring input_str;
 std::wstring input_comp;
 
-HFONT g_hFont;
-
-LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
-                            LPARAM lParam) {
+LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
     case WM_IME_COMPOSITION: {
         input_comp.clear();
 
-        // if the composition character is completed
         if (lParam & GCS_RESULTSTR) {
             input_str.push_back(wParam);
         }
+        // GCS_COMPSTR
         else {
-            // GCS_COMPSTR
             input_comp.push_back(wParam);
         }
         InvalidateRect(hWnd, NULL, TRUE);
@@ -47,7 +58,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
         return 0;
     }
 
-    // Get a valid character
     case WM_CHAR: {
         switch (wParam) {
         // backspace
@@ -62,7 +72,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
                 input_str.pop_back();
             }
             input_str.pop_back();
-            break;
         }
         // tab
         case 0x09:
@@ -90,10 +99,6 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
         RECT rectWindow;
         GetClientRect(hWnd, &rectWindow);
 
-        // Fill the background as white
-        HBRUSH brushWhite = CreateSolidBrush(RGB(255, 255, 255));
-        FillRect(hdc, &rectWindow, brushWhite);
-
         // Print the text
         RECT rectText = rectWindow;
         rectText.left += 16;
@@ -101,11 +106,10 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
         rectText.right -= 16;
         rectText.bottom -= 16;
 
-        SelectObject(hdc, g_hFont);
+        SelectObject(hdc, im_window_font);
 
         std::wstring output_text = L"Input: " + input_str + input_comp;
-        DrawTextW(hdc, output_text.data(), -1, &rectText,
-                  DT_LEFT | DT_WORDBREAK);
+        DrawTextW(hdc, output_text.data(), -1, &rectText, DT_LEFT | DT_NOCLIP);
 
         EndPaint(hWnd, &ps);
 
@@ -125,26 +129,27 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                     PWSTR pCmdLine, int nCmdShow) {
     /* Window */
     WNDCLASSW wc = {};
-    wc.lpfnWndProc = WindowProc;
+    wc.lpfnWndProc = WndProc;
     wc.hInstance = hInstance;
-    wc.lpszClassName = L"im_win32";
+    wc.lpszClassName = im_window.name;
+    wc.hbrBackground = CreateSolidBrush(im_window.background);
 
     RegisterClassW(&wc);
 
-    HWND hWnd = CreateWindowExW(0, wc.lpszClassName, L"im_win32",
-                                WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU,
-                                CW_USEDEFAULT, CW_USEDEFAULT, 320, 240, NULL,
-                                NULL, hInstance, NULL);
+    HWND hWnd =
+        CreateWindowExW(0, wc.lpszClassName, im_window.name, im_window.style,
+                        CW_USEDEFAULT, CW_USEDEFAULT, im_window.width,
+                        im_window.height, NULL, NULL, hInstance, NULL);
     if (!hWnd) {
         return 1;
     }
 
-    /* Static font */
-    g_hFont =
+    /* Font */
+    im_window_font =
         CreateFontW(20, 0, 0, 0, FW_REGULAR, FALSE, FALSE, FALSE,
                     DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
                     CLEARTYPE_QUALITY, FF_DONTCARE, L"Segoe UI");
-    if (!g_hFont) {
+    if (!im_window_font) {
         DestroyWindow(hWnd);
         return 1;
     }
@@ -157,6 +162,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         TranslateMessage(&msg);
         DispatchMessageW(&msg);
     }
+
+    DeleteObject(im_window_font);
 
     return 0;
 }
