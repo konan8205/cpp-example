@@ -38,16 +38,19 @@ constexpr window_s text_window = {
 float text_window_scale = 1.f;
 
 float UpdateWindowScale(HWND hWnd, window_s info) {
-    DWORD dwStyle, dwExStyle;
-    if (dwStyle = (DWORD)GetWindowLong(hWnd, GWL_STYLE); !dwStyle) {
-        return 0.f;
-    }
-    if (dwExStyle = (DWORD)GetWindowLong(hWnd, GWL_EXSTYLE); !dwExStyle) {
+
+    DWORD dwStyle = (DWORD)GetWindowLong(hWnd, GWL_STYLE);
+    if (!dwStyle) {
         return 0.f;
     }
 
-    UINT dpi;
-    if (dpi = GetDpiForWindow(hWnd); !dpi) {
+    DWORD dwExStyle = (DWORD)GetWindowLong(hWnd, GWL_EXSTYLE);
+    if (!dwExStyle) {
+        return 0.f;
+    }
+
+    UINT dpi = GetDpiForWindow(hWnd);
+    if (!dpi) {
         return 0.f;
     }
 
@@ -61,8 +64,8 @@ float UpdateWindowScale(HWND hWnd, window_s info) {
     }
 
     if (!SetWindowPos(hWnd, NULL, 0, 0, scaledRect.right - scaledRect.left,
-                        scaledRect.bottom - scaledRect.top,
-                        SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOMOVE)) {
+                      scaledRect.bottom - scaledRect.top,
+                      SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOMOVE)) {
         return FALSE;
     }
 
@@ -82,7 +85,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
                                   FALSE, FALSE, FALSE, DEFAULT_CHARSET,
                                   OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
                                   CLEARTYPE_QUALITY, FF_DONTCARE, L"Segoe UI");
-
         if (!hFont) {
             ExitProcess(1);
             return 0;
@@ -112,8 +114,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     }
 
     case WM_DPICHANGED: {
-        if (text_window_scale = UpdateWindowScale(hWnd, text_window);
-            !text_window_scale || !InvalidateRect(hWnd, NULL, TRUE)) {
+        text_window_scale = UpdateWindowScale(hWnd, text_window);
+        if (!text_window_scale || !InvalidateRect(hWnd, NULL, TRUE)) {
             ExitProcess(1);
         }
         return 0;
@@ -147,12 +149,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                                 text_window.style, CW_USEDEFAULT, CW_USEDEFAULT,
                                 text_window.width, text_window.height, NULL,
                                 NULL, hInstance, NULL);
-
     if (!hWnd) {
         return 1;
     }
-    if (text_window_scale = UpdateWindowScale(hWnd, text_window);
-        !text_window_scale) {
+
+    text_window_scale = UpdateWindowScale(hWnd, text_window);
+    if (!text_window_scale) {
         return 1;
     }
 
