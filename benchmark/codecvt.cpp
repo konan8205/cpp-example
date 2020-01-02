@@ -38,14 +38,14 @@ int main() {
     but the available character encodings are limited.
     */
 
-    using high_resolution_clock = std::chrono::high_resolution_clock;
-    high_resolution_clock::time_point st, ed;
+    using hrc = std::chrono::high_resolution_clock;
+    hrc::time_point st, ed;
 
     str_cvt.reserve(512);
 
     /* codecvt */
     {
-        st = high_resolution_clock::now();
+        st = hrc::now();
 
 #ifdef _WIN32
         using codecvt = std::codecvt<wchar_t, char, std::mbstate_t>;
@@ -71,7 +71,7 @@ int main() {
             str_cvt.resize(to_next - &str_cvt[0]);
         }
 
-        ed = high_resolution_clock::now();
+        ed = hrc::now();
         d[0] = ed - st;
         str_cvt.clear();
     }
@@ -79,7 +79,7 @@ int main() {
 #ifdef _WIN32
     /* MultiByteToWideChar */
     {
-        st = high_resolution_clock::now();
+        st = hrc::now();
 
         for (int i = 0; i < 1e7; ++i) {
             /*
@@ -102,14 +102,14 @@ int main() {
             str_cvt.resize(size);
         }
 
-        ed = high_resolution_clock::now();
+        ed = hrc::now();
         d[1] = ed - st;
         str_cvt.clear();
     }
 #else
     /* iconv */
     {
-        st = high_resolution_clock::now();
+        st = hrc::now();
         iconv_t cd = iconv_open("UTF-8", "UTF-16");
 
         for (int i = 0; i < 1e7; ++i) {
@@ -130,15 +130,13 @@ int main() {
 
         iconv_close(cd);
 
-        ed = high_resolution_clock::now();
+        ed = hrc::now();
         d[1] = ed - st;
         str_cvt.clear();
     }
 #endif
 
-    /* print all results */
-
-    // Optimization
+    // Optimize
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(NULL);
     std::cout.tie(NULL);
@@ -146,6 +144,7 @@ int main() {
     std::cout.precision(2);
     std::cout.setf(std::ios::fixed);
 
+    // Print benchmark results
 #ifdef _WIN32
     std::cout << "codecvt:\t\t\t" << d[0].count() << std::endl
               << "WideCharToMultiByte:\t\t" << d[1].count() << std::endl

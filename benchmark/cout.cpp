@@ -20,18 +20,18 @@ int main() {
     std::cout is fast enough.
     */
 
-    using high_resolution_clock = std::chrono::high_resolution_clock;
-    high_resolution_clock::time_point st, ed;
+    using hrc = std::chrono::high_resolution_clock;
+    hrc::time_point st, ed;
 
     // cout
     {
         std::cout.flush();
-        st = high_resolution_clock::now();
+        st = hrc::now();
         for (int i = 0; i < 1e4; ++i) {
             std::cout << str << std::endl;
         }
 
-        ed = high_resolution_clock::now();
+        ed = hrc::now();
         t[0] = ed - st;
     }
 
@@ -42,68 +42,66 @@ int main() {
         std::cout.tie(NULL);
 
         std::cout.flush();
-        st = high_resolution_clock::now();
+        st = hrc::now();
         for (int i = 0; i < 1e4; ++i) {
             std::cout << str << std::endl;
         }
 
-        ed = high_resolution_clock::now();
+        ed = hrc::now();
         t[1] = ed - st;
     }
 
-    // prepare for c functions
+    // Prepare for C functions
+    std::cout.flush();
     std::ios_base::sync_with_stdio(true);
 
     // printf
     {
         std::fflush(stdout);
-        st = high_resolution_clock::now();
+        st = hrc::now();
         for (int i = 0; i < 1e4; ++i) {
             std::printf("%s\n", str.data());
         }
 
-        ed = high_resolution_clock::now();
+        ed = hrc::now();
         t[2] = ed - st;
     }
 
     // puts
     {
         std::fflush(stdout);
-        st = high_resolution_clock::now();
+        st = hrc::now();
         for (int i = 0; i < 1e4; ++i) {
             std::puts(str.data());
         }
 
-        ed = high_resolution_clock::now();
+        ed = hrc::now();
         t[3] = ed - st;
     }
 
-    /* print all results */
-
-    // Optimization
+    // Optimize
     std::ios_base::sync_with_stdio(false);
 
     std::cout.precision(2);
     std::cout.setf(std::ios::fixed);
 
-    std::cout.flush();
-
 #if _WIN32
     std::system("cls");
 #else
-    std::system("clear; clear");
+    std::system("clear");
 #endif
 
-    std::cout << std::endl
-              << "cout:\t\t\t" << t[0].count() << std::endl
-              << "cout optimized:\t\t" << t[1].count() << std::endl
-              << "printf:\t\t\t" << t[2].count() << std::endl
-              << "puts:\t\t\t" << t[3].count() << std::endl
-              << std::endl;
-    std::cout << "cout/printf:\t\t" << t[0].count() / t[2].count() << std::endl
+    // Print benchmark results
+    std::cout << "\n"
+              << "cout:\t\t\t" << t[0].count() << "\n"
+              << "cout optimized:\t\t" << t[1].count() << "\n"
+              << "printf:\t\t\t" << t[2].count() << "\n"
+              << "puts:\t\t\t" << t[3].count() << "\n\n";
+
+    std::cout << "cout/printf:\t\t" << t[0].count() / t[2].count() << "\n"
               << "cout optimized/printf:\t" << t[1].count() / t[2].count()
-              << std::endl
-              << "puts/printf:\t\t" << t[2].count() / t[3].count() << std::endl;
+              << "\n"
+              << "puts/printf:\t\t" << t[2].count() / t[3].count() << "\n";
 
     return 0;
 }
