@@ -1,7 +1,11 @@
 BasedOnStyle: LLVM
 AccessModifierOffset: -4
 AlignEscapedNewlines: DontAlign
-BreakBeforeBraces: Stroustrup
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
 IndentWidth: 4
 TabWidth: 4
 UseTab: ForIndentation
