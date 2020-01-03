@@ -13,8 +13,7 @@
 #include <windows.h>
 #endif
 
-int main()
-{
+int main() {
 #ifdef _WIN32
 	/*
 	https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/setmode

@@ -15,8 +15,7 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
 #ifdef _WIN32
 	/*
 	https://docs.microsoft.com/en-us/windows/console/setconsolecp

@@ -34,8 +34,7 @@ const std::string str_replace = STR_REPLACE(u8);
 const std::regex str_regex(STR_REGEX(u8));
 #endif
 
-int main()
-{
+int main() {
 	// Optimization
 	std::ios_base::sync_with_stdio(false);
 #ifdef _WIN32

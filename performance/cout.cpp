@@ -14,8 +14,7 @@
 std::string str = "abcdefghijklnmopqrstuvwxyz";
 std::chrono::duration<double> t[4];
 
-int main()
-{
+int main() {
 	/*
 	If you set ios_base::sync_with_stdio(false),
 	std::cout is fast enough.

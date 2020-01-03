@@ -28,11 +28,11 @@ const std::wstring str = STR(L);
 #else
 const std::u16string str = STR(u);
 #endif
+
 std::string str_cvt;
 std::chrono::duration<double> d[2];
 
-int main()
-{
+int main() {
 	/*
 	codecvt is useful because it is fast enough,
 	but the available character encodings are limited.
@@ -56,6 +56,7 @@ int main()
 		auto &f = std::use_facet<codecvt>(std::locale());
 		const char16_t *from_next;
 #endif
+
 		char *to_next;
 		std::mbstate_t mb{};
 
@@ -103,7 +104,6 @@ int main()
 		d[1] = ed - st;
 		str_cvt.clear();
 	}
-
 #else
 	/* iconv */
 	{
@@ -132,7 +132,6 @@ int main()
 		d[1] = ed - st;
 		str_cvt.clear();
 	}
-
 #endif
 
 	/* print all results */
