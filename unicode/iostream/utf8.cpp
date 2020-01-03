@@ -24,17 +24,17 @@ int main()
 	SetConsoleCP(CP_UTF8);
 	SetConsoleOutputCP(CP_UTF8);
 #else
-	locale::global(locale("en_US.UTF-8"));
+	std::locale::global(locale("en_US.UTF-8"));
 #endif
 
 	// Optimization
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	std::ios_base::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
 
-	cout << u8"UTF-8 is beautiful :)" << endl
-	     << u8"UTF-8は美しいです :)" << endl
-	     << u8"UTF-8은 아름답습니다 :)" << endl;
+	std::cout << u8"UTF-8 is beautiful :)" << std::endl
+	          << u8"UTF-8は美しいです :)" << std::endl
+	          << u8"UTF-8은 아름답습니다 :)" << std::endl;
 
 	return 0;
 }

@@ -13,8 +13,6 @@
 #include <windows.h>
 #endif
 
-using namespace std;
-
 int main()
 {
 #ifdef _WIN32
@@ -27,13 +25,13 @@ int main()
 #endif
 
 	// Optimization
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	std::ios_base::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
 
-	wcout << L"UTF-16 is useful :)" << endl
-	      << L"UTF-16は有用です :)" << endl
-	      << L"UTF-16은 유용합니다 :)" << endl;
+	std::wcout << L"UTF-16 is useful :)" << std::endl
+	           << L"UTF-16は有用です :)" << std::endl
+	           << L"UTF-16은 유용합니다 :)" << std::endl;
 
 	return 0;
 }
