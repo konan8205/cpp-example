@@ -1,7 +1,7 @@
 BasedOnStyle: LLVM
 AccessModifierOffset: -4
+AlignEscapedNewlines: DontAlign
 BreakBeforeBraces: Stroustrup
-ColumnLimit: 0
 IndentWidth: 4
 TabWidth: 4
 UseTab: ForIndentation
