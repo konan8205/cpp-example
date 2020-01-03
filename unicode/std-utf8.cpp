@@ -9,8 +9,8 @@
 #include <locale>
 
 #ifdef _WIN32
-#include <windows.h>
 #include <io.h>
+#include <windows.h>
 #endif // _WIN32
 
 using namespace std;
@@ -33,8 +33,8 @@ int main()
 	cout.tie(NULL);
 
 	cout << u8"UTF-8 is beautiful :)" << endl
-		 << u8"UTF-8は美しいです :)" << endl
-		 << u8"UTF-8은 아름답습니다 :)" << endl;
+	     << u8"UTF-8は美しいです :)" << endl
+	     << u8"UTF-8은 아름답습니다 :)" << endl;
 
 	return 0;
 }

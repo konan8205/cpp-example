@@ -8,8 +8,8 @@
 #include <iostream>
 
 #ifdef _WIN32
-#include <windows.h>
 #include <io.h>
+#include <windows.h>
 
 #ifndef _O_U16TEXT
 #define _O_U16TEXT 0x00020000
@@ -35,8 +35,8 @@ int main()
 	cout.tie(NULL);
 
 	wcout << L"UTF-16 is useful :)" << endl
-		  << L"UTF-16は有用です :)" << endl
-		  << L"UTF-16은 유용합니다 :)" << endl;
+	      << L"UTF-16は有用です :)" << endl
+	      << L"UTF-16은 유용합니다 :)" << endl;
 
 	return 0;
 }
