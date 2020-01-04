@@ -23,7 +23,7 @@ int main() {
     using hrc = std::chrono::high_resolution_clock;
     hrc::time_point st, ed;
 
-    // cout
+    /* cout */
     {
         std::cout.flush();
         st = hrc::now();
@@ -35,7 +35,7 @@ int main() {
         t[0] = ed - st;
     }
 
-    // cout optimized
+    /* cout optimized */
     {
         std::ios_base::sync_with_stdio(false);
         std::cin.tie(NULL);
@@ -55,7 +55,7 @@ int main() {
     std::cout.flush();
     std::ios_base::sync_with_stdio(true);
 
-    // printf
+    /* printf */
     {
         std::fflush(stdout);
         st = hrc::now();
@@ -67,7 +67,7 @@ int main() {
         t[2] = ed - st;
     }
 
-    // puts
+    /* puts */
     {
         std::fflush(stdout);
         st = hrc::now();

@@ -36,7 +36,7 @@ int main() {
     using hrc = std::chrono::high_resolution_clock;
     hrc::time_point st, ed;
 
-    // Increasing memory with lossful malloc
+    /* Increasing memory with lossful malloc */
     {
         int *ptr = (int *)std::malloc(test_size);
         [[unlikely]] if (ptr == nullptr) {
@@ -58,7 +58,7 @@ int main() {
         free(ptr);
     }
 
-    // Increasing memory with malloc & memcpy
+    /* Increasing memory with malloc & memcpy */
     {
         int *ptr = (int *)std::malloc(test_size);
         [[unlikely]] if (ptr == nullptr) {
@@ -82,7 +82,7 @@ int main() {
         std::free(ptr);
     }
 
-    // Increasing memory with realloc
+    /* Increasing memory with realloc */
     {
         int *ptr = (int *)std::malloc(test_size);
         [[unlikely]] if (ptr == nullptr) {
@@ -104,7 +104,7 @@ int main() {
         std::free(ptr);
     }
 
-    // Decreasing memory with lossful malloc
+    /* Decreasing memory with lossful malloc */
     {
         int *ptr = (int *)std::malloc(test_size * test_case);
         [[unlikely]] if (ptr == nullptr) {
@@ -126,7 +126,7 @@ int main() {
         free(ptr);
     }
 
-    // Decreasing memory with malloc & memcpy
+    /* Decreasing memory with malloc & memcpy */
     {
         int *ptr = (int *)std::malloc(test_size * test_case);
         [[unlikely]] if (ptr == nullptr) {
@@ -150,7 +150,7 @@ int main() {
         std::free(ptr);
     }
 
-    // Decreasing memory with realloc
+    /* Decreasing memory with realloc */
     {
         int *ptr = (int *)std::malloc(test_size * test_case);
         [[unlikely]] if (ptr == nullptr) {

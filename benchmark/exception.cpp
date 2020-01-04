@@ -15,7 +15,7 @@ std::chrono::duration<double> result[2];
 
 int main() {
     /*
-    Exception handling is REALLY slow.
+    Exception handling is EXTREMELY slow.
     Do not use it if possible.
     */
 

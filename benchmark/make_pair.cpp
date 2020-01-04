@@ -14,8 +14,7 @@ std::chrono::duration<double> res[3];
 
 int main() {
     /*
-    To speed up C++ STL containers like vector or deque,
-    use customized allocator that reduces system call of memory allocation.
+    Do not use make_pair if possible.
     */
 
     using hrc = std::chrono::high_resolution_clock;

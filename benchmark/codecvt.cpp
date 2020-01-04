@@ -34,8 +34,7 @@ std::chrono::duration<double> d[2];
 
 int main() {
     /*
-    codecvt is useful because it is fast enough,
-    but the available character encodings are limited.
+    codecvt is fast enough compared to iconv.
     */
 
     using hrc = std::chrono::high_resolution_clock;
@@ -63,11 +62,9 @@ int main() {
         for (int i = 0; i < 1e7; ++i) {
             int size = str.size() * 4;
             str_cvt.resize(size);
-            // 'str[str.size()]' is the shortest way to implement this code
             f.out(mb, &str[0], &str[str.size()], from_next, &str_cvt[0],
                   &str_cvt[size], to_next);
 
-            // std::string does not require '\0' at the end of the string
             str_cvt.resize(to_next - &str_cvt[0]);
         }
 
@@ -77,7 +74,7 @@ int main() {
     }
 
 #ifdef _WIN32
-    /* MultiByteToWideChar */
+    /* WideCharToMultiByte */
     {
         st = hrc::now();
 
